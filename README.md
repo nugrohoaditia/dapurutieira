@@ -1,105 +1,84 @@
-# Dapur Utieira Company Profile
+# Dapur Utieira Monorepo
 
-A professional one-page bilingual company profile website for a home-based frozen food business. The site is built with React, Vite, Tailwind CSS, Framer Motion, Jest, and React Testing Library.
+This repository is organized as a monorepo with a React frontend and a Strapi backend.
 
-## Features
-
-- Indonesian and English language switcher with `localStorage` persistence
-- Light and dark mode with system preference fallback and `localStorage` persistence
-- Sticky responsive navigation with mobile menu
-- Hero, About, Products, How It Works, Benefits, Testimonials, FAQ, Contact, and Footer sections
-- Nine editable static product cards with bilingual names and descriptions
-- Accessible product detail modal with WhatsApp CTA
-- FAQ accordion animation
-- WhatsApp-only contact CTA for fast ordering
-- Framer Motion section, card, button, and modal animations
-- SEO-friendly page title, meta description, and semantic section structure
-- Jest and React Testing Library unit tests
-
-## Tech Stack
-
-- React.js
-- Vite
-- Tailwind CSS
-- Framer Motion
-- Lucide React
-- Jest
-- React Testing Library
-
-## Folder Structure
+## Structure
 
 ```text
-food-company-profile/
-|-- public/
-|   |-- images/
-|   |-- favicon.svg
-|-- src/
-|   |-- App.jsx
-|   |-- main.jsx
-|   |-- index.css
-|   |-- data/
-|   |-- hooks/
-|   |-- components/
-|   |-- tests/
-|-- package.json
-|-- vite.config.js
-|-- tailwind.config.js
-|-- postcss.config.js
+dapurutieira/
+|-- frontend/
+|   |-- React + Vite + Tailwind website
+|-- backend/
+|   |-- Strapi CMS for Product content only
 |-- README.md
+|-- .gitignore
 ```
 
-## Local Setup
+## Frontend
+
+The frontend lives in `frontend/` and is intended for Vercel deployment.
 
 ```bash
+cd frontend
 npm install
 npm run dev
 npm test
 npm run build
 ```
 
-## Scripts
+Set:
 
-- `npm run dev` starts the Vite development server
-- `npm test` runs Jest once
-- `npm run test:watch` runs Jest in watch mode
-- `npm run build` creates the production build
-- `npm run preview` previews the production build
-
-## Edit Product Data
-
-Product data lives in `src/data/products.js`. Each product supports bilingual content:
-
-```js
-{
-    name: {
-        id: "Ayam Gule",
-        en: "Gulai Chicken"
-    },
-    description: {
-        id: "Deskripsi produk.",
-        en: "Product description."
-    }
-}
+```env
+VITE_STRAPI_API_URL=http://localhost:1337
 ```
 
-Replace placeholder names, descriptions, categories, prices, and optional image paths there.
+In production, point it to the Strapi Cloud backend URL.
 
-## Edit Bilingual Content
+## Backend
 
-All main website copy lives in `src/data/translations.js`. Edit the `id` object for Indonesian and the `en` object for English. This includes navigation, buttons, sections, WhatsApp contact copy, and footer text.
+The backend lives in `backend/` and is intended for Strapi Cloud deployment.
 
-## Contact Customization
-
-Update WhatsApp and Instagram values in `src/data/translations.js` inside `contactLinks`:
-
-```js
-export const contactLinks = {
-    whatsappDisplay: "0812-8182-2881",
-    whatsappUrl: "https://wa.me/6281281822881",
-    instagram: "@dapurutieira"
-};
+```bash
+cd backend
+npm install
+cp .env.example .env
+npm run develop
 ```
 
-## Images
+The backend uses PostgreSQL for local development and the `pg` driver. It does not use SQLite or `better-sqlite3`.
 
-The product grid uses neutral in-card placeholders so the project does not depend on paid or external assets. To use real images later, add files under `public/images/` and update the `image` path in `src/data/products.js`.
+Use Node.js 20, 22, or 24 with the current Strapi 5 dependency range.
+
+The CMS manages only Product content.
+
+## Content Ownership
+
+Managed in Strapi:
+- Products
+- Product cover image
+- Product gallery images
+- Product price/category/instructions
+
+Kept static in frontend data files:
+- Hero
+- About
+- FAQ
+- Testimonials
+- Contact CTA
+- Footer
+- Navigation
+- General bilingual wording
+
+Products are one language only and are displayed exactly as entered in Strapi. The frontend language switcher affects only static frontend wording.
+
+## Product Loading
+
+The frontend fetches products from Strapi only when the Products section enters the viewport. It fetches once per page lifecycle and caches the result in React state.
+
+If Strapi fails, times out, is unavailable, or returns no active products, the frontend displays fallback products from `frontend/src/data/products.js`.
+
+## Deployment Plan
+
+- Deploy `frontend/` to Vercel.
+- Deploy `backend/` to Strapi Cloud.
+- Configure Vercel `VITE_STRAPI_API_URL` with the Strapi Cloud URL.

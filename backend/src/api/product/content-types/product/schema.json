@@ -1,0 +1,65 @@
+{
+    "kind": "collectionType",
+    "collectionName": "products",
+    "info": {
+        "singularName": "product",
+        "pluralName": "products",
+        "displayName": "Product",
+        "description": "Product catalog items managed by Strapi CMS."
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "name": {
+            "type": "string",
+            "required": true
+        },
+        "slug": {
+            "type": "uid",
+            "targetField": "name",
+            "required": true
+        },
+        "shortDescription": {
+            "type": "text"
+        },
+        "fullDescription": {
+            "type": "richtext"
+        },
+        "price": {
+            "type": "string"
+        },
+        "category": {
+            "type": "string"
+        },
+        "coverImage": {
+            "type": "media",
+            "multiple": false,
+            "allowedTypes": ["images"]
+        },
+        "productImages": {
+            "type": "media",
+            "multiple": true,
+            "allowedTypes": ["images"]
+        },
+        "cookingInstruction": {
+            "type": "richtext"
+        },
+        "storageInstruction": {
+            "type": "richtext"
+        },
+        "order": {
+            "type": "integer",
+            "default": 0
+        },
+        "isActive": {
+            "type": "boolean",
+            "default": true
+        },
+        "isFeatured": {
+            "type": "boolean",
+            "default": false
+        }
+    }
+}

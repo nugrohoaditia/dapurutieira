@@ -8,7 +8,7 @@ export default function Footer({ t }) {
                 <div>
                     <a href="#home" className="focus-ring inline-flex items-center gap-3 rounded-2xl">
                         <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-2xl bg-skysoft">
-                            <img src="/logo-dapur-utieira.webp" alt="" className="h-11 w-11 object-contain" />
+                            <img src="/logo-dapur-utieira.jpg" alt="" className="h-11 w-11 object-contain" />
                         </span>
                         <span>
                             <span className="block font-black">{t.meta.company}</span>

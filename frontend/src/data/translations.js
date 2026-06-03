@@ -45,7 +45,9 @@ export const translations = {
             instruction: "Panaskan 8-12 menit dengan kukusan, wajan tertutup, microwave, atau air fryer sesuai jenis menu.",
             storageTitle: "Instruksi Penyimpanan",
             storage: "Simpan di freezer pada suhu beku. Gunakan sebelum tanggal kedaluwarsa pada kemasan.",
-            modalLabel: "Detail produk"
+            modalLabel: "Detail produk",
+            fallbackNotice: "Produk lokal ditampilkan sementara karena katalog CMS belum tersedia.",
+            empty: "Belum ada produk aktif untuk ditampilkan."
         },
         howItWorks: {
             eyebrow: "Cara Pesan",
@@ -150,7 +152,9 @@ export const translations = {
             instruction: "Heat for 8-12 minutes with a steamer, covered pan, microwave, or air fryer depending on the menu.",
             storageTitle: "Storage Instruction",
             storage: "Keep frozen in the freezer. Use before the expiry date printed on the package.",
-            modalLabel: "Product details"
+            modalLabel: "Product details",
+            fallbackNotice: "Local products are shown temporarily because the CMS catalog is unavailable.",
+            empty: "No active products are available yet."
         },
         howItWorks: {
             eyebrow: "How It Works",

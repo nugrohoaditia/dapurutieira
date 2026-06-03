@@ -6,13 +6,16 @@ class ResizeObserverMock {
     disconnect() {}
 }
 
+let intersectionObservers = [];
+
 class IntersectionObserverMock {
     constructor(callback) {
         this.callback = callback;
+        intersectionObservers.push(this);
     }
 
-    observe() {
-        this.callback([{ isIntersecting: true }]);
+    observe(target) {
+        this.target = target;
     }
 
     unobserve() {}
@@ -22,6 +25,12 @@ class IntersectionObserverMock {
 window.ResizeObserver = ResizeObserverMock;
 window.IntersectionObserver = IntersectionObserverMock;
 window.scrollTo = jest.fn();
+window.__triggerIntersection = (isIntersecting = true) => {
+    intersectionObservers.forEach((observer) => {
+        observer.callback([{ isIntersecting, target: observer.target }]);
+    });
+};
+window.__getIntersectionObserverCount = () => intersectionObservers.length;
 
 Object.defineProperty(window, "matchMedia", {
     writable: true,
@@ -35,4 +44,9 @@ Object.defineProperty(window, "matchMedia", {
         removeEventListener: jest.fn(),
         dispatchEvent: jest.fn()
     }))
+});
+
+beforeEach(() => {
+    intersectionObservers = [];
+    window.fetch = jest.fn(() => Promise.reject(new Error("Strapi unavailable in tests")));
 });
